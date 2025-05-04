@@ -1,0 +1,3 @@
+/Users/mcsquare/Documents/yadro_test/build/CMakeFiles/computer_club.dir
+/Users/mcsquare/Documents/yadro_test/build/CMakeFiles/edit_cache.dir
+/Users/mcsquare/Documents/yadro_test/build/CMakeFiles/rebuild_cache.dir
