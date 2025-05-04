@@ -49,6 +49,8 @@ int main(int argc, char* argv[]) {
         if (hour_cost <= 0) throw std::runtime_error("Invalid hour cost");
         
         ComputerClub club(tables_count, start_time, end_time, hour_cost);
+
+        club.printStartTime();
         
         // Process events
         while (std::getline(inputFile, line)) {

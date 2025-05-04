@@ -26,7 +26,7 @@ Time Time::operator + (uint32_t minutes) const{
 }
 
 uint16_t Time::operator-(const Time& other) const {
-    return (hours - other.hours) * 60 + (minutes - other.minutes);
+    return (this->hours - other.hours) * 60 + (this->minutes - other.minutes);
 }
 
 Time Time::fromString(const std::string& str) {
@@ -92,8 +92,12 @@ void ComputerClub::closeClub() {
     }
 }
 
+void ComputerClub::printStartTime() const{
+    std::cout <<startTime.toString()<<std::endl;
+}
+
 void ComputerClub::printResults() const {
-    std::cout << startTime.toString() << std::endl;
+    std::cout << endTime.toString() << std::endl;
     
     for (const auto& table : tables) {
         std::cout << table.number << " " << table.revenue << " " << table.occupiedTime.toString() << std::endl;
@@ -189,7 +193,7 @@ void ComputerClub::generateError(const Time& time, const std::string& message) {
 
 void ComputerClub::clientSitsAtTable(const Time& time, const std::string& clientName, uint16_t tableNum) {
     tables[tableNum - 1].currentClient = clientName;
-    tables[tableNum - 1].occupiedTime = time;
+    tables[tableNum - 1].lastLaunchTime = time;
     clients[clientName] = tableNum;
 }
 
@@ -206,7 +210,7 @@ void ComputerClub::freeTable(const Time& time, uint16_t tableNum) {
     Table& table = tables[tableNum - 1];
     if (table.currentClient.empty()) return;
     
-    addRevenue(tableNum, table.occupiedTime, time);
+    addRevenue(tableNum, table.lastLaunchTime, time);
     table.currentClient.clear();
     
     if (!waitingQueue.empty()) {
@@ -218,10 +222,11 @@ void ComputerClub::freeTable(const Time& time, uint16_t tableNum) {
 }
 
 void ComputerClub::addRevenue(uint16_t tableNum, const Time& start, const Time& end) {
-    int minutes = end - start;
-    int hours = minutes / 60;
+    uint32_t minutes = end - start;
+    uint32_t hours = minutes / 60;
     if (minutes % 60 != 0) hours++;
     
     tables[tableNum - 1].revenue += hours * hourCost;
-    tables[tableNum - 1].occupiedTime = Time(hours, minutes % 60);
+    uint32_t totalMinutes = tables[tableNum - 1].occupiedTime.hours * 60 + tables[tableNum - 1].occupiedTime.minutes + minutes;
+    tables[tableNum - 1].occupiedTime = Time(totalMinutes / 60, totalMinutes % 60);
 }

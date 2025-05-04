@@ -30,7 +30,8 @@ struct Time {
 struct Table{
     uint16_t number;
     uint32_t revenue;
-    Time occupiedTime;
+    Time occupiedTime = Time(0,0);
+    Time lastLaunchTime;
     std::string currentClient;
 
     Table(int num) : number(num), revenue(0), currentClient("") {}
@@ -43,6 +44,7 @@ public:
     void processEvent(const Time& time, uint16_t id, const std::vector<std::string>& args);
     void closeClub();
 
+    void printStartTime() const;
     void printResults() const;
 
 private:
