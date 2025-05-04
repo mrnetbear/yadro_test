@@ -27,7 +27,7 @@ A C++ application that simulates and manages events in a computer club, tracking
 ```bash
 # Clone the repository
 git clone https://github.com/mrnetbear/yadro_test
-cd computer-club
+cd yadro_test
 
 # Create build directory
 mkdir build
@@ -79,7 +79,7 @@ cmake --build .
 ## 📂 Project Structure
 
 ```
-computer-club/
+yadro_test/
 ├── CMakeLists.txt       - CMake build configuration
 ├── src/                     - source code
     ├── computer_club.hpp    - Time and ComputerClub classes
